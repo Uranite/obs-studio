@@ -6,8 +6,6 @@
         "-DCMAKE_BUILD_TYPE=Release",
         "-DBUILD_SHARED_LIBS=ON",
         "-DBUILD_APPS=OFF",
-        "-DBUILD_DEC=ON",
-        "-DBUILD_ENC=ON",
         "-DBUILD_TESTING=OFF"
     ],
     "cleanup": [
@@ -17,9 +15,9 @@
     "sources": [
         {
             "type": "git",
-            "url": "https://gitlab.com/AOMediaCodec/SVT-AV1.git",
-            "tag": "v2.2.1",
-            "commit": "55a01def732bb9e7016d23cc512384f7a88d6e86"
+            "url": "https://github.com/psy-ex/svt-av1-psy.git",
+            "tag": "v2.3.0-A",
+            "commit": "7e412a4244d094d141862fca44b6bf1b7e37b7e0"
         }
     ]
 }
