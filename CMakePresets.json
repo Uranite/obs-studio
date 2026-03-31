@@ -31,7 +31,7 @@
                   "baseUrl": "https://github.com/Uranite/obs-deps/releases/download",
                   "label": "Pre-Built obs-deps",
                   "hashes": {
-                      "macos-universal": "da9d24d509a37193a1a151d73e797bf9e1e8502f95b3d6ab3a3d2d800a2f3f19",
+                      "macos-universal": "902f33d3e990d6ecc581f37b05b4ff95ebfcbc3fbe6d1fdbe1d95266e8df5413",
                       "windows-x64": "672a6daf754c15116cd593daeaac977eee9ac53d75ab5d07bf61d8e0843177fc",
                       "windows-x86": "f87faa32760f846af22339eacd89f2a87cf4b00025dcc1b364cd4b58548299ac",
                       "windows-arm64": "477fad531bc1e8622c3eafbf41e1f6d859bd21c61a4da279cb2becccf8a3e749"
