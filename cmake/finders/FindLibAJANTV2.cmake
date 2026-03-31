@@ -137,6 +137,12 @@ if(LibAJANTV2_FOUND)
     list(APPEND LibAJANTV2_INCLUDE_DIRS ${LibAJANTV2_INCLUDE_DIR}/ajantv2/src/lin)
   endif()
 
+  if(NOT LibAJANTV2_FIND_QUIETLY)
+    find_package(MbedTLS QUIET)
+  else()
+    find_package(MbedTLS QUIET)
+  endif()
+
   set(LibAJANTV2_LIBRARIES ${LibAJANTV2_LIBRARY})
   mark_as_advanced(LibAJANTV2_INCLUDE_DIR LibAJANTV2_LIBRARY)
 
@@ -183,6 +189,7 @@ if(LibAJANTV2_FOUND)
           "$<$<PLATFORM_ID:Darwin>:$<LINK_LIBRARY:FRAMEWORK,AppKit.framework>>"
           "$<$<PLATFORM_ID:Darwin>:$<LINK_LIBRARY:FRAMEWORK,CoreFoundation.framework>>"
           "$<$<PLATFORM_ID:Darwin>:$<LINK_LIBRARY:FRAMEWORK,IOKit.framework>>"
+          "$<$<AND:$<PLATFORM_ID:Darwin>,$<TARGET_EXISTS:MbedTLS::mbedtls>>:MbedTLS::mbedtls;MbedTLS::mbedcrypto;MbedTLS::mbedx509>"
     )
     set_property(
       TARGET AJA::LibAJANTV2
