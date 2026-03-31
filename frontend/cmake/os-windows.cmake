@@ -19,7 +19,6 @@ configure_file(cmake/windows/obs.rc.in obs.rc)
 target_sources(
   obs-studio
   PRIVATE
-    cmake/windows/obs.manifest
     dialogs/OBSUpdate.cpp
     dialogs/OBSUpdate.hpp
     forms/OBSUpdate.ui
@@ -63,7 +62,7 @@ target_link_libraries(
 
 target_compile_definitions(obs-studio PRIVATE PSAPI_VERSION=2)
 
-target_link_options(obs-studio PRIVATE /IGNORE:4099 $<$<CONFIG:DEBUG>:/NODEFAULTLIB:MSVCRT>)
+target_link_options(obs-studio PRIVATE /MANIFEST:NO /IGNORE:4099 $<$<CONFIG:DEBUG>:/NODEFAULTLIB:MSVCRT>)
 
 # Set commit for untagged version comparisons in the Windows updater
 if(OBS_VERSION MATCHES ".+g[a-f0-9]+.*")
