@@ -29,6 +29,7 @@ set(
   -Wno-missing-braces
   -Wparentheses
   -Wno-switch
+  -Wno-microsoft-cast
   -Wno-unused-function
   -Wno-unused-label
   -Wno-unused-parameter
@@ -79,6 +80,7 @@ set(
   -Wrange-loop-analysis
   -Wno-inconsistent-missing-override
   -Wno-unused-private-field
+  -Wno-delete-non-abstract-non-virtual-dtor
 )
 
 if(CMAKE_CXX_STANDARD GREATER_EQUAL 20)
