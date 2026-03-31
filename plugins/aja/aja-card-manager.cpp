@@ -2,6 +2,7 @@
 #include "aja-common.hpp"
 #include "aja-output.hpp"
 #include "aja-source.hpp"
+#include <sstream>
 
 #include "obs-properties.h"
 

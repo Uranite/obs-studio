@@ -2,6 +2,8 @@
 #include "aja-common.hpp"
 #include "aja-routing.hpp"
 #include "aja-widget-io.hpp"
+#include <iomanip>
+#include <sstream>
 
 #include <ajabase/common/common.h>
 #include <ajantv2/includes/ntv2card.h>
