@@ -82,7 +82,7 @@ add_compile_definitions(
   _UNICODE
   _CRT_SECURE_NO_WARNINGS
   _CRT_NONSTDC_NO_WARNINGS
-  $<$<COMPILE_LANG_AND_ID:C,Clang>:memory_order_seq_cst=__ATOMIC_SEQ_CST>
+  $<$<COMPILE_LANG_AND_ID:C,Clang,CXX,Clang>:memory_order_seq_cst=__ATOMIC_SEQ_CST>
   $<$<CONFIG:DEBUG>:DEBUG>
   $<$<CONFIG:DEBUG>:_DEBUG>
 )
@@ -96,7 +96,8 @@ add_link_options(
   $<$<OR:$<CONFIG:Release>,$<CONFIG:MinSizeRel>>:/EMITTOOLVERSIONINFO:NO>
   /DEBUG
   /Brepro
-  $<$<COMPILE_LANG_AND_ID:C,Clang,CXX,Clang>:/FORCE:MULTIPLE>
+  $<$<C_COMPILER_ID:Clang>:/FORCE:MULTIPLE>
+  $<$<CXX_COMPILER_ID:Clang>:/FORCE:MULTIPLE>
 )
 
 if(CMAKE_COMPILE_WARNING_AS_ERROR)

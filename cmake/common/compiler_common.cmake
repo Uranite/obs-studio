@@ -55,6 +55,10 @@ set(
   -Wno-documentation-deprecated-sync
   -Wno-unqualified-std-cast-call
   -Wno-pessimizing-move
+  -Wno-reserved-identifier
+  -Wno-documentation-unknown-command
+  -Wno-gnu-zero-variadic-macro-arguments
+  -Wno-disabled-macro-expansion
   -Wno-unused-function
   -Wno-unused-label
   -Wno-unused-parameter
