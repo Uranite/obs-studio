@@ -137,7 +137,7 @@ if(LibAJANTV2_FOUND)
     list(APPEND LibAJANTV2_INCLUDE_DIRS ${LibAJANTV2_INCLUDE_DIR}/ajantv2/src/lin)
   endif()
 
-  if(APPLE AND NOT TARGET MbedTLS::mbedtls)
+  if(NOT TARGET MbedTLS::mbedtls)
     find_package(MbedTLS QUIET)
   endif()
 
@@ -188,7 +188,7 @@ if(LibAJANTV2_FOUND)
           "$<$<PLATFORM_ID:Darwin>:$<LINK_LIBRARY:FRAMEWORK,CoreFoundation.framework>>"
           "$<$<PLATFORM_ID:Darwin>:$<LINK_LIBRARY:FRAMEWORK,IOKit.framework>>"
     )
-    if(MbedTLS_FOUND AND APPLE)
+    if(MbedTLS_FOUND)
       set_property(
         TARGET AJA::LibAJANTV2
         APPEND

@@ -14,6 +14,7 @@
 #include <media-io/video-io.h>
 #include <media-io/video-frame.h>
 #include <ajantv2/includes/ntv2devicescanner.h>
+#include <sstream>
 
 OBS_DECLARE_MODULE()
 OBS_MODULE_USE_DEFAULT_LOCALE("aja-output-ui", "en-US")
