@@ -82,6 +82,7 @@ add_compile_definitions(
   _UNICODE
   _CRT_SECURE_NO_WARNINGS
   _CRT_NONSTDC_NO_WARNINGS
+  $<$<COMPILE_LANG_AND_ID:C,Clang>:memory_order_seq_cst=__ATOMIC_SEQ_CST>
   $<$<CONFIG:DEBUG>:DEBUG>
   $<$<CONFIG:DEBUG>:_DEBUG>
 )

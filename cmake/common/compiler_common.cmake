@@ -30,6 +30,7 @@ set(
   -Wparentheses
   -Wno-switch
   -Wno-microsoft-cast
+  -Wno-incompatible-function-pointer-types
   -Wno-unused-function
   -Wno-unused-label
   -Wno-unused-parameter
