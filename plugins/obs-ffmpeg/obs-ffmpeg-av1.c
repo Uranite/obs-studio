@@ -100,13 +100,16 @@ static bool av1_update(struct av1_encoder *enc, obs_data_t *settings)
 		av_opt_set_int(enc->ffve.context->priv_data, "row-mt", 1, 0);
 	}
 
-	if (astrcmpi(rc, "cqp") == 0) {
+	if (astrcmpi(rc, "cqp") == 0 || astrcmpi(rc, "crf") == 0) {
 		bitrate = 0;
-		av_opt_set_int(enc->ffve.context->priv_data, "crf", cqp, 0);
 
 		if (enc->type == AV1_ENCODER_TYPE_SVT) {
-			av_dict_set_int(&svtav1_opts, "rc", 0, 0);
-			av_opt_set_int(enc->ffve.context->priv_data, "qp", cqp, 0);
+			if (astrcmpi(rc, "cqp") == 0)
+				av_opt_set_int(enc->ffve.context->priv_data, "qp", cqp, 0);
+			else
+				av_opt_set_int(enc->ffve.context->priv_data, "crf", cqp, 0);
+		} else {
+			av_opt_set_int(enc->ffve.context->priv_data, "crf", cqp, 0);
 		}
 
 	} else if (astrcmpi(rc, "vbr") != 0) { /* CBR by default */
@@ -231,8 +234,8 @@ void av1_defaults(obs_data_t *settings)
 {
 	obs_data_set_default_int(settings, "bitrate", 6000);
 	obs_data_set_default_int(settings, "keyint_sec", 0);
-	obs_data_set_default_int(settings, "cqp", 50);
-	obs_data_set_default_string(settings, "rate_control", "CBR");
+	obs_data_set_default_int(settings, "cqp", 30);
+	obs_data_set_default_string(settings, "rate_control", "CRF");
 	obs_data_set_default_int(settings, "preset", 8);
 }
 
@@ -240,14 +243,15 @@ static bool rate_control_modified(obs_properties_t *ppts, obs_property_t *p, obs
 {
 	const char *rc = obs_data_get_string(settings, "rate_control");
 	bool cqp = astrcmpi(rc, "CQP") == 0;
+	bool crf = astrcmpi(rc, "CRF") == 0;
 	bool vbr = astrcmpi(rc, "VBR") == 0;
 
 	p = obs_properties_get(ppts, "bitrate");
-	obs_property_set_visible(p, !cqp);
+	obs_property_set_visible(p, !cqp && !crf);
 	p = obs_properties_get(ppts, "max_bitrate");
 	obs_property_set_visible(p, vbr);
 	p = obs_properties_get(ppts, "cqp");
-	obs_property_set_visible(p, cqp);
+	obs_property_set_visible(p, cqp || crf);
 
 	return true;
 }
@@ -262,6 +266,7 @@ obs_properties_t *av1_properties(enum av1_encoder_type type)
 	obs_property_list_add_string(p, "CBR", "CBR");
 	obs_property_list_add_string(p, "CQP", "CQP");
 	obs_property_list_add_string(p, "VBR", "VBR");
+	obs_property_list_add_string(p, "CRF", "CRF");
 
 	obs_property_set_modified_callback(p, rate_control_modified);
 
