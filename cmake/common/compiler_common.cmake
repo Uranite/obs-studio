@@ -24,7 +24,7 @@ set(
   -Wno-missing-field-initializers
   -Wno-missing-prototypes
   -Werror=return-type
-  -Wunreachable-code
+  -Wno-unreachable-code
   -Wquoted-include-in-framework-header
   -Wno-missing-braces
   -Wparentheses
@@ -39,6 +39,7 @@ set(
   -Wno-unused-parameter
   -Wno-unused-variable
   -Wno-unused-but-set-variable
+  -Wno-unused-local-typedef
   -Wno-unused-value
   -Wempty-body
   -Wuninitialized
