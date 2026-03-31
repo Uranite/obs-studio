@@ -97,6 +97,7 @@ add_link_options(
   /Brepro
   $<$<C_COMPILER_ID:Clang>:/FORCE:MULTIPLE>
   $<$<CXX_COMPILER_ID:Clang>:/FORCE:MULTIPLE>
+  /MANIFESTUAC:"level='asInvoker' uiAccess='false'"
 )
 
 if(CMAKE_COMPILE_WARNING_AS_ERROR)
