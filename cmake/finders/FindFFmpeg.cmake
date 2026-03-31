@@ -291,9 +291,20 @@ if(EXISTS "${FFmpeg_avutil_INCLUDE_DIR}/libavutil/ffversion.h")
   file(
     STRINGS "${FFmpeg_avutil_INCLUDE_DIR}/libavutil/ffversion.h"
     _version_string
-    REGEX "^.*FFMPEG_VERSION[ \t]+\"n?[0-9a-z\\~+.-]+\"[ \t]*$"
+    REGEX "^.*FFMPEG_VERSION[ \t]+\"[A-Za-z0-9\\~+.-]+\"[ \t]*$"
   )
-  string(REGEX REPLACE ".*FFMPEG_VERSION[ \t]+\"n?([0-9]+\\.[0-9]).*\".*" "\\1" FFmpeg_VERSION "${_version_string}")
+
+  if(_version_string MATCHES ".*FFMPEG_VERSION[ \t]+\"n?([0-9]+\\.[0-9]).*\"")
+    string(REGEX REPLACE ".*FFMPEG_VERSION[ \t]+\"n?([0-9]+\\.[0-9]).*\".*" "\\1" FFmpeg_VERSION "${_version_string}")
+  elseif(_version_string MATCHES ".*FFMPEG_VERSION[ \t]+\"N-.*\"")
+    if(FFmpeg_avcodec_VERSION MATCHES "^61\.")
+      set(FFmpeg_VERSION "7.0.0")
+    elseif(FFmpeg_avcodec_VERSION MATCHES "^60\.")
+      set(FFmpeg_VERSION "6.1.0")
+    else()
+      set(FFmpeg_VERSION "8.0.0")
+    endif()
+  endif()
 endif()
 
 list(REMOVE_DUPLICATES FFmpeg_INCLUDE_DIRS)
