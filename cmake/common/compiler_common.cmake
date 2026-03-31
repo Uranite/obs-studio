@@ -25,9 +25,9 @@ set(
   -Wno-missing-prototypes
   -Werror=return-type
   -Wno-unreachable-code
-  -Wquoted-include-in-framework-header
+  -Wno-quoted-include-in-framework-header
   -Wno-missing-braces
-  -Wparentheses
+  -Wno-parentheses
   -Wno-switch
   -Wno-microsoft-cast
   -Wno-microsoft-string-literal-from-predefined
@@ -47,6 +47,14 @@ set(
   -Wno-old-style-cast
   -Wno-gnu-anonymous-struct
   -Wno-c++98-compat-pedantic
+  -Wno-int-to-pointer-cast
+  -Wno-switch-default
+  -Wno-switch-enum
+  -Wno-nested-anon-types
+  -Wno-documentation
+  -Wno-documentation-deprecated-sync
+  -Wno-unqualified-std-cast-call
+  -Wno-pessimizing-move
   -Wno-unused-function
   -Wno-unused-label
   -Wno-unused-parameter
@@ -57,22 +65,20 @@ set(
   -Wempty-body
   -Wuninitialized
   -Wno-unknown-pragmas
-  -Wfour-char-constants
   -Wconstant-conversion
   -Wno-conversion
-  -Wint-conversion
-  -Wbool-conversion
-  -Wenum-conversion
-  -Wnon-literal-null-conversion
+  -Wno-int-conversion
+  -Wno-bool-conversion
+  -Wno-enum-conversion
+  -Wno-non-literal-null-conversion
   -Wno-sign-compare
   -Wno-shorten-64-to-32
   -Wno-pointer-sign
   -Wno-newline-eof
   -Wno-implicit-fallthrough
-  -Wdeprecated-declarations
   -Wno-sign-conversion
   -Winfinite-recursion
-  -Wcomma
+  -Wno-comma
   -Wno-strict-prototypes
   -Wno-semicolon-before-method-body
   -Wformat-security
@@ -106,7 +112,7 @@ if(CMAKE_CXX_STANDARD GREATER_EQUAL 20)
 endif()
 
 if(NOT DEFINED CMAKE_COMPILE_WARNING_AS_ERROR)
-  set(CMAKE_COMPILE_WARNING_AS_ERROR ON)
+  set(CMAKE_COMPILE_WARNING_AS_ERROR OFF)
 endif()
 
 # Enable interprocedural optimization

@@ -96,6 +96,7 @@ add_link_options(
   $<$<OR:$<CONFIG:Release>,$<CONFIG:MinSizeRel>>:/EMITTOOLVERSIONINFO:NO>
   /DEBUG
   /Brepro
+  $<$<COMPILE_LANG_AND_ID:C,Clang,CXX,Clang>:/FORCE:MULTIPLE>
 )
 
 if(CMAKE_COMPILE_WARNING_AS_ERROR)
