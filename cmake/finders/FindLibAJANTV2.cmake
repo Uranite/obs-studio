@@ -137,9 +137,7 @@ if(LibAJANTV2_FOUND)
     list(APPEND LibAJANTV2_INCLUDE_DIRS ${LibAJANTV2_INCLUDE_DIR}/ajantv2/src/lin)
   endif()
 
-  if(NOT LibAJANTV2_FIND_QUIETLY)
-    find_package(MbedTLS QUIET)
-  else()
+  if(APPLE AND NOT TARGET MbedTLS::mbedtls)
     find_package(MbedTLS QUIET)
   endif()
 
