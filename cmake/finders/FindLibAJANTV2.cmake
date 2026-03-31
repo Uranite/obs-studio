@@ -189,8 +189,15 @@ if(LibAJANTV2_FOUND)
           "$<$<PLATFORM_ID:Darwin>:$<LINK_LIBRARY:FRAMEWORK,AppKit.framework>>"
           "$<$<PLATFORM_ID:Darwin>:$<LINK_LIBRARY:FRAMEWORK,CoreFoundation.framework>>"
           "$<$<PLATFORM_ID:Darwin>:$<LINK_LIBRARY:FRAMEWORK,IOKit.framework>>"
-          "$<$<AND:$<PLATFORM_ID:Darwin>,$<TARGET_EXISTS:MbedTLS::mbedtls>>:MbedTLS::mbedtls;MbedTLS::mbedcrypto;MbedTLS::mbedx509>"
     )
+    if(MbedTLS_FOUND AND APPLE)
+      set_property(
+        TARGET AJA::LibAJANTV2
+        APPEND
+        PROPERTY INTERFACE_LINK_LIBRARIES MbedTLS::mbedtls MbedTLS::mbedcrypto MbedTLS::mbedx509
+      )
+    endif()
+
     set_property(
       TARGET AJA::LibAJANTV2
       APPEND
