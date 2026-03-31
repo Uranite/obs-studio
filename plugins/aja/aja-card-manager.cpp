@@ -493,28 +493,26 @@ void CardManager::EnumerateCards()
 {
 	const std::lock_guard<std::mutex> lock(mMutex);
 	CNTV2DeviceScanner scanner;
-	for (uint32_t i = 0; i < scanner.GetNumDevices(); i++) {
-		NTV2DeviceInfo deviceInfo;
-		if (scanner.GetDeviceInfo(i, deviceInfo)) {
-			CNTV2Card card((UWord)deviceInfo.deviceIndex);
-			const std::string &cardID = aja::MakeCardID(card);
+	const NTV2DeviceInfoList &deviceList = scanner.GetDeviceInfoList();
+	for (const auto &iter : deviceList) {
+		CNTV2Card card((UWord)iter.deviceIndex);
+		const std::string &cardID = aja::MakeCardID(card);
 
-			// New Card Entry
-			if (mCardEntries.find(cardID) == mCardEntries.end()) {
-				CardEntryPtr cardEntry = std::make_shared<CardEntry>(deviceInfo.deviceIndex, cardID);
-				if (cardEntry && cardEntry->Initialize())
-					mCardEntries.emplace(cardID, cardEntry);
-			} else {
-				// Card fell off of the bus and came back with a new physical index?
-				auto currEntry = mCardEntries[cardID];
-				if (currEntry) {
-					if (currEntry->GetCardIndex() != deviceInfo.deviceIndex) {
-						mCardEntries.erase(cardID);
-						CardEntryPtr cardEntry =
-							std::make_shared<CardEntry>(deviceInfo.deviceIndex, cardID);
-						if (cardEntry && cardEntry->Initialize())
-							mCardEntries.emplace(cardID, cardEntry);
-					}
+		// New Card Entry
+		if (mCardEntries.find(cardID) == mCardEntries.end()) {
+			CardEntryPtr cardEntry = std::make_shared<CardEntry>(iter.deviceIndex, cardID);
+			if (cardEntry && cardEntry->Initialize())
+				mCardEntries.emplace(cardID, cardEntry);
+		} else {
+			// Card fell off of the bus and came back with a new physical index?
+			auto currEntry = mCardEntries[cardID];
+			if (currEntry) {
+				if (currEntry->GetCardIndex() != iter.deviceIndex) {
+					mCardEntries.erase(cardID);
+					CardEntryPtr cardEntry =
+						std::make_shared<CardEntry>(iter.deviceIndex, cardID);
+					if (cardEntry && cardEntry->Initialize())
+						mCardEntries.emplace(cardID, cardEntry);
 				}
 			}
 		}
