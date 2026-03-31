@@ -128,6 +128,11 @@ static bool av1_update(struct av1_encoder *enc, obs_data_t *settings)
 	}
 
 	if (enc->type == AV1_ENCODER_TYPE_SVT) {
+		bool rtc_mode = obs_data_get_bool(settings, "rtc");
+		if (rtc_mode) {
+			av_dict_set_int(&svtav1_opts, "rtc", 1, 0);
+			av_dict_set_int(&svtav1_opts, "pred-struct", 1, 0);
+		}
 		av_opt_set_dict_val(enc->ffve.context->priv_data, "svtav1_opts", svtav1_opts, 0);
 	}
 
@@ -237,6 +242,7 @@ void av1_defaults(obs_data_t *settings)
 	obs_data_set_default_int(settings, "cqp", 30);
 	obs_data_set_default_string(settings, "rate_control", "CRF");
 	obs_data_set_default_int(settings, "preset", 8);
+	obs_data_set_default_bool(settings, "rtc", false);
 }
 
 static bool rate_control_modified(obs_properties_t *ppts, obs_property_t *p, obs_data_t *settings)
@@ -282,6 +288,12 @@ obs_properties_t *av1_properties(enum av1_encoder_type type)
 				    OBS_COMBO_FORMAT_INT);
 
 	if (type == AV1_ENCODER_TYPE_SVT) {
+		obs_property_list_add_int(p, "Extraordinarily slow (0)", 0);
+		obs_property_list_add_int(p, "Extremely slow (1)", 1);
+		obs_property_list_add_int(p, "Very slow (2)", 2);
+		obs_property_list_add_int(p, "Slower (3)", 3);
+		obs_property_list_add_int(p, "Slow (4)", 4);
+		obs_property_list_add_int(p, "Slightly slow (5)", 5);
 		obs_property_list_add_int(p, "Very likely too slow (6)", 6);
 		obs_property_list_add_int(p, "Probably too slow (7)", 7);
 		obs_property_list_add_int(p, "Seems okay (8)", 8);
@@ -289,6 +301,9 @@ obs_properties_t *av1_properties(enum av1_encoder_type type)
 		obs_property_list_add_int(p, "A little bit faster? (10)", 10);
 		obs_property_list_add_int(p, "Hmm, not bad speed (11)", 11);
 		obs_property_list_add_int(p, "Whoa, although quality might be not so great (12)", 12);
+		obs_property_list_add_int(p, "Ultra fast (13)", 13);
+
+		obs_properties_add_bool(props, "rtc", obs_module_text("Enable RTC Mode"));
 	} else if (type == AV1_ENCODER_TYPE_AOM) {
 		obs_property_list_add_int(p, "Probably too slow (7)", 7);
 		obs_property_list_add_int(p, "Okay (8)", 8);
