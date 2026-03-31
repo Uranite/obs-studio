@@ -82,14 +82,6 @@ add_compile_definitions(
   _UNICODE
   _CRT_SECURE_NO_WARNINGS
   _CRT_NONSTDC_NO_WARNINGS
-  $<$<C_COMPILER_ID:Clang>:memory_order_relaxed=__ATOMIC_RELAXED>
-  $<$<C_COMPILER_ID:Clang>:memory_order_acquire=__ATOMIC_ACQUIRE>
-  $<$<C_COMPILER_ID:Clang>:memory_order_release=__ATOMIC_RELEASE>
-  $<$<C_COMPILER_ID:Clang>:memory_order_seq_cst=__ATOMIC_SEQ_CST>
-  $<$<CXX_COMPILER_ID:Clang>:memory_order_relaxed=__ATOMIC_RELAXED>
-  $<$<CXX_COMPILER_ID:Clang>:memory_order_acquire=__ATOMIC_ACQUIRE>
-  $<$<CXX_COMPILER_ID:Clang>:memory_order_release=__ATOMIC_RELEASE>
-  $<$<CXX_COMPILER_ID:Clang>:memory_order_seq_cst=__ATOMIC_SEQ_CST>
   $<$<CONFIG:DEBUG>:DEBUG>
   $<$<CONFIG:DEBUG>:_DEBUG>
 )

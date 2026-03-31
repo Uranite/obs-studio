@@ -34,6 +34,19 @@
 #include <simd/base.h>
 #endif
 
+#if defined(__clang__)
+#  include <stdatomic.h>
+#  if defined(__cplusplus)
+#    include <atomic>
+using std::memory_order_relaxed;
+using std::memory_order_consume;
+using std::memory_order_acquire;
+using std::memory_order_release;
+using std::memory_order_acq_rel;
+using std::memory_order_seq_cst;
+#  endif
+#endif
+
 #define SIMDE_ENABLE_NATIVE_ALIASES
 PRAGMA_WARN_PUSH
 #include <simde/x86/sse2.h>
