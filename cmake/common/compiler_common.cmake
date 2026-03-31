@@ -34,6 +34,19 @@ set(
   -Wno-macro-redefined
   -Wno-incompatible-function-pointer-types
   -Wno-incompatible-pointer-types
+  -Wno-nontrivial-memcall
+  -Wno-bitwise-op-parentheses
+  -Wno-ignored-attributes
+  -Wno-reorder-ctor
+  -Wno-four-char-constants
+  -Wno-visibility
+  -Wno-deprecated-declarations
+  -Wno-enum-compare-conditional
+  -Wno-reserved-macro-identifier
+  -Wno-zero-as-null-pointer-constant
+  -Wno-old-style-cast
+  -Wno-gnu-anonymous-struct
+  -Wno-c++98-compat-pedantic
   -Wno-unused-function
   -Wno-unused-label
   -Wno-unused-parameter

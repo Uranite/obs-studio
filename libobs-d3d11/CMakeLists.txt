@@ -46,3 +46,7 @@ set_target_properties_obs(
              SOVERSION ${OBS_VERSION_MAJOR}
              COMPILE_WARNING_AS_ERROR FALSE
 )
+
+if(MSVC OR (CMAKE_CXX_COMPILER_ID STREQUAL "Clang" AND CMAKE_CXX_SIMULATE_ID STREQUAL "MSVC"))
+  target_link_options(libobs-d3d11 PRIVATE /FORCE:MULTIPLE)
+endif()

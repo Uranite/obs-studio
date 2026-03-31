@@ -28,4 +28,9 @@ target_precompile_headers(
 
 target_link_libraries(libobs-winrt PRIVATE OBS::libobs OBS::COMutils Dwmapi windowsapp)
 
-set_target_properties_obs(libobs-winrt PROPERTIES FOLDER core)
+set_target_properties(
+  libobs-winrt
+  PROPERTIES FOLDER core
+             CXX_STANDARD 20
+             CXX_STANDARD_REQUIRED ON
+)

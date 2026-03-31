@@ -76,3 +76,7 @@ set_target_properties_obs(
              PREFIX ""
              SOVERSION "${OBS_VERSION_MAJOR}"
 )
+
+if(OS_WINDOWS AND (MSVC OR (CMAKE_CXX_COMPILER_ID STREQUAL "Clang" AND CMAKE_CXX_SIMULATE_ID STREQUAL "MSVC")))
+  target_link_options(libobs-opengl PRIVATE /FORCE:MULTIPLE)
+endif()
