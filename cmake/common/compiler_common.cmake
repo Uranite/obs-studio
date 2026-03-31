@@ -28,12 +28,13 @@ set(
   -Wquoted-include-in-framework-header
   -Wno-missing-braces
   -Wparentheses
-  -Wswitch
+  -Wno-switch
   -Wno-unused-function
   -Wno-unused-label
-  -Wunused-parameter
-  -Wunused-variable
-  -Wunused-value
+  -Wno-unused-parameter
+  -Wno-unused-variable
+  -Wno-unused-but-set-variable
+  -Wno-unused-value
   -Wempty-body
   -Wuninitialized
   -Wno-unknown-pragmas
@@ -46,7 +47,7 @@ set(
   -Wnon-literal-null-conversion
   -Wsign-compare
   -Wshorten-64-to-32
-  -Wpointer-sign
+  -Wno-pointer-sign
   -Wnewline-eof
   -Wno-implicit-fallthrough
   -Wdeprecated-declarations
@@ -76,6 +77,8 @@ set(
   -Wmove
   -Werror=block-capture-autoreleasing
   -Wrange-loop-analysis
+  -Wno-inconsistent-missing-override
+  -Wno-unused-private-field
 )
 
 if(CMAKE_CXX_STANDARD GREATER_EQUAL 20)
