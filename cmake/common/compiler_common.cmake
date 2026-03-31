@@ -30,7 +30,10 @@ set(
   -Wparentheses
   -Wno-switch
   -Wno-microsoft-cast
+  -Wno-microsoft-string-literal-from-predefined
+  -Wno-macro-redefined
   -Wno-incompatible-function-pointer-types
+  -Wno-incompatible-pointer-types
   -Wno-unused-function
   -Wno-unused-label
   -Wno-unused-parameter
@@ -47,10 +50,10 @@ set(
   -Wbool-conversion
   -Wenum-conversion
   -Wnon-literal-null-conversion
-  -Wsign-compare
-  -Wshorten-64-to-32
+  -Wno-sign-compare
+  -Wno-shorten-64-to-32
   -Wno-pointer-sign
-  -Wnewline-eof
+  -Wno-newline-eof
   -Wno-implicit-fallthrough
   -Wdeprecated-declarations
   -Wno-sign-conversion
