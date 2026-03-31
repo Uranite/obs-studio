@@ -184,6 +184,7 @@ if(LibAJANTV2_FOUND)
           $<$<PLATFORM_ID:Windows>:wbemuuid.lib>
           $<$<PLATFORM_ID:Windows>:winmm.lib>
           $<$<PLATFORM_ID:Windows>:ws2_32.lib>
+          $<$<PLATFORM_ID:Windows>:bcrypt.lib>
           "$<$<PLATFORM_ID:Darwin>:$<LINK_LIBRARY:FRAMEWORK,AppKit.framework>>"
           "$<$<PLATFORM_ID:Darwin>:$<LINK_LIBRARY:FRAMEWORK,CoreFoundation.framework>>"
           "$<$<PLATFORM_ID:Darwin>:$<LINK_LIBRARY:FRAMEWORK,IOKit.framework>>"
