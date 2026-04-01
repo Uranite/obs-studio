@@ -63,7 +63,6 @@ target_link_libraries(
     FFmpeg::avutil
     FFmpeg::swscale
     FFmpeg::swresample
-    SvtAv1Enc::SvtAv1Enc
     $<$<PLATFORM_ID:Windows>:OBS::w32-pthreads>
     $<$<PLATFORM_ID:Windows>:ws2_32>
     $<$<PLATFORM_ID:Linux,FreeBSD,OpenBSD>:Libva::va>

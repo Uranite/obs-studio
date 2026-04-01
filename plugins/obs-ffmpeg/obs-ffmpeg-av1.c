@@ -20,62 +20,6 @@
 #define do_log(level, format, ...) \
 	blog(level, "[AV1 encoder: '%s'] " format, obs_encoder_get_name(enc->ffve.encoder), ##__VA_ARGS__)
 
-#include <EbSvtAv1Enc.h>
-
-typedef enum {
-	SVT_AV1_LOG_ALL = -1,
-	SVT_AV1_LOG_FATAL = 0,
-	SVT_AV1_LOG_ERROR = 1,
-	SVT_AV1_LOG_WARN = 2,
-	SVT_AV1_LOG_INFO = 3,
-	SVT_AV1_LOG_DEBUG = 4,
-} SvtAv1LogLevel;
-
-// Typedef matches EbSvtAv1Enc.h for custom callback usage
-typedef void (*SvtAv1LogCallback)(void *context, SvtAv1LogLevel level, const char *tag, const char *fmt, va_list args);
-extern void svt_av1_set_log_callback(SvtAv1LogCallback callback, void *context);
-extern const char *svt_av1_get_version(void);
-
-static void obs_svt_log_callback(void *context, SvtAv1LogLevel level, const char *tag, const char *fmt, va_list args)
-{
-	UNUSED_PARAMETER(context);
-	int obs_level;
-
-	switch (level) {
-	case SVT_AV1_LOG_DEBUG: obs_level = LOG_DEBUG; break;
-	case SVT_AV1_LOG_INFO: obs_level = LOG_INFO; break;
-	case SVT_AV1_LOG_WARN: obs_level = LOG_WARNING; break;
-	case SVT_AV1_LOG_ERROR:
-	case SVT_AV1_LOG_FATAL: obs_level = LOG_ERROR; break;
-	default: obs_level = LOG_INFO; break;
-	}
-
-	char message[4096];
-	int len = 0;
-	if (tag) {
-		const char *level_str;
-		switch (level) {
-		case SVT_AV1_LOG_FATAL: level_str = "fatal"; break;
-		case SVT_AV1_LOG_ERROR: level_str = "error"; break;
-		case SVT_AV1_LOG_WARN: level_str = "warn"; break;
-		case SVT_AV1_LOG_INFO: level_str = "info"; break;
-		case SVT_AV1_LOG_DEBUG: level_str = "debug"; break;
-		default: level_str = "unknown"; break;
-		}
-		len = snprintf(message, sizeof(message), "%s[%s]: ", tag, level_str);
-	}
-
-	vsnprintf(message + len, sizeof(message) - len, fmt, args);
-
-	size_t msg_len = strlen(message);
-	while (msg_len > 0 && (message[msg_len - 1] == '\n' || message[msg_len - 1] == '\r')) {
-		message[msg_len - 1] = '\0';
-		msg_len--;
-	}
-
-	blog(obs_level, "%s", message);
-}
-
 #define error(format, ...) do_log(LOG_ERROR, format, ##__VA_ARGS__)
 #define warn(format, ...) do_log(LOG_WARNING, format, ##__VA_ARGS__)
 #define info(format, ...) do_log(LOG_INFO, format, ##__VA_ARGS__)
@@ -197,13 +141,8 @@ static bool av1_update(struct av1_encoder *enc, obs_data_t *settings)
 	av_dict_free(&svtav1_opts);
 
 	info("settings:\n"
-	     "\tencoder:      %s\n",
-	     enc->ffve.enc_name);
-	if (enc->type == AV1_ENCODER_TYPE_SVT) {
-		info("\tSVT-AV1:      %s\n", svt_av1_get_version());
-	}
-
-	info("\trate_control: %s\n"
+	     "\tencoder:      %s\n"
+	     "\trate_control: %s\n"
 	     "\tbitrate:      %d\n"
 	     "\tcqp:          %d\n"
 	     "\tkeyint:       %d\n"
@@ -211,7 +150,7 @@ static bool av1_update(struct av1_encoder *enc, obs_data_t *settings)
 	     "\twidth:        %d\n"
 	     "\theight:       %d\n"
 	     "\tffmpeg opts:  %s\n",
-	     rc, bitrate, cqp, enc->ffve.context->gop_size, preset, enc->ffve.context->width,
+	     enc->ffve.enc_name, rc, bitrate, cqp, enc->ffve.context->gop_size, preset, enc->ffve.context->width,
 	     enc->ffve.height, ffmpeg_opts);
 
 	enc->ffve.context->flags |= AV_CODEC_FLAG_GLOBAL_HEADER;
@@ -263,16 +202,10 @@ static void *av1_create_internal(obs_data_t *settings, obs_encoder_t *encoder, c
 
 	struct av1_encoder *enc = bzalloc(sizeof(*enc));
 
-	if (strcmp(enc_lib, "libsvtav1") == 0) {
-		static bool log_callback_set = false;
-		if (!log_callback_set) {
-			svt_av1_set_log_callback(obs_svt_log_callback, NULL);
-			log_callback_set = true;
-		}
+	if (strcmp(enc_lib, "libsvtav1") == 0)
 		enc->type = AV1_ENCODER_TYPE_SVT;
-	} else if (strcmp(enc_lib, "libaom-av1") == 0) {
+	else if (strcmp(enc_lib, "libaom-av1") == 0)
 		enc->type = AV1_ENCODER_TYPE_AOM;
-	}
 
 	if (!ffmpeg_video_encoder_init(&enc->ffve, enc, encoder, enc_lib, NULL, enc_name, NULL, on_first_packet))
 		goto fail;

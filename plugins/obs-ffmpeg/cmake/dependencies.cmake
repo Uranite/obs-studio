@@ -4,8 +4,6 @@ find_package(
   REQUIRED avcodec avfilter avdevice avutil swscale avformat swresample
 )
 
-find_package(SvtAv1Enc REQUIRED)
-
 if(NOT TARGET OBS::media-playback)
   add_subdirectory("${CMAKE_SOURCE_DIR}/shared/media-playback" "${CMAKE_BINARY_DIR}/shared/media-playback")
 endif()
