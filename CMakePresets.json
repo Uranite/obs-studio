@@ -31,10 +31,10 @@
                   "baseUrl": "https://github.com/Uranite/obs-deps/releases/download",
                   "label": "Pre-Built obs-deps",
                   "hashes": {
-                      "macos-universal": "a4a2ddd5d093a34f484dcce83cadd605a005802411c8acfc93270d206342dc34",
-                      "windows-x64": "2a5a5aa2f20c39785728a2f591b1fdf1df7a69336e84168978db75832ccd9856",
-                      "windows-x86": "70116955c392b57e20d5ab4666d7388c7734134c480399c9cc291d0fbc85e354",
-                      "windows-arm64": "dcfca612133f604395a6aca46c9095da5c9e84534609a7f66831f91f48b144c0"
+                      "macos-universal": "2b2cf6236c12490fa7e06a78d9db29e5d6ca6c75259e295fc65a45c019bb9715",
+                      "windows-x64": "e8bfe05b0cfb69940e1a6bd8bb2208c5cc8690fd231e4c4d3ac1e70a9ed3762b",
+                      "windows-x86": "f0398e00c1d7e46ca60c9ba7f395a139759cd85a582af8f7103a33ea754560d8",
+                      "windows-arm64": "672548354b3b7bc4cc06c31964262e7fb81f897ca53aca3a4a2f1b7ce83e1b54"
                   }
               },
               "qt6": {
@@ -42,13 +42,13 @@
                   "baseUrl": "https://github.com/Uranite/obs-deps/releases/download",
                   "label": "Pre-Built Qt6",
                   "hashes": {
-                      "macos-universal": "9eb0c519cae4ae16dbba94102c861b78e0f2cebf476f3a2797c7e58c0f468f89",
-                      "windows-x64": "3a214553b4a0684698d3f23c3f7284170a647752a22f336d7c07fb8a4509a002",
-                      "windows-arm64": "e223d2fdb809739c31ee15e61b286499c35a223f0b93ad33518b1717735c9559"
+                      "macos-universal": "ef37297e47549569afe7208b17568b927b3a1969a673efaf17d28cc7754d521f",
+                      "windows-x64": "b6bd4e7f65e6a8db6fcf562cd0f8cb7c7da2e4fa8d68975238bf1ae427aa2827",
+                      "windows-arm64": "8fcb5d12ab5f969ac3cc2176d312c2e68a8215ba561ab2f9978a3dd5ab7f98dc"
                   },
                   "debugSymbols": {
-                      "windows-x64": "690b3aea4bce1b0744306b4f5416c1a3dbd77f6511ef1f0e4c2fd62bfdcb05cb",
-                      "windows-arm64": "819e5e12f5383f211313a8c71fd1a89df5b7e6622590e336d6a225a458902a4b"
+                      "windows-x64": "3e2ce5f6f1b3c19f20ea462541b9de8e689adc64cb890e7ccc6bc0f8a63a8959",
+                      "windows-arm64": "cf05609ad614d3632df537af34e8f172d216f0d903730cae730d013d7f14366b"
                   }
               },
               "cef": {
