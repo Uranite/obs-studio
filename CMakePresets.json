@@ -27,7 +27,7 @@
         "obsproject.com/obs-studio": {
           "dependencies": {
               "prebuilt": {
-                  "version": "2026-03-31",
+                  "version": "2026-04-01",
                   "baseUrl": "https://github.com/Uranite/obs-deps/releases/download",
                   "label": "Pre-Built obs-deps",
                   "hashes": {
@@ -38,7 +38,7 @@
                   }
               },
               "qt6": {
-                  "version": "2026-03-31",
+                  "version": "2026-04-01",
                   "baseUrl": "https://github.com/Uranite/obs-deps/releases/download",
                   "label": "Pre-Built Qt6",
                   "hashes": {
