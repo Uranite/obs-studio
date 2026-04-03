@@ -287,8 +287,17 @@ static bool rtc_modified(obs_properties_t *ppts, obs_property_t *p, obs_data_t *
 {
 	UNUSED_PARAMETER(p);
 	bool rtc = obs_data_get_bool(settings, "rtc");
+	int64_t preset = obs_data_get_int(settings, "preset");
 	obs_property_t *preset_prop = obs_properties_get(ppts, "preset");
+
 	populate_svt_presets(preset_prop, rtc);
+
+	if (!rtc && preset == 12) {
+		obs_data_set_int(settings, "preset", 11);
+	} else if (rtc && preset < 7) {
+		obs_data_set_int(settings, "preset", 12);
+	}
+
 	return true;
 }
 
