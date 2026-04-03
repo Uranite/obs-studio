@@ -262,6 +262,36 @@ static bool rate_control_modified(obs_properties_t *ppts, obs_property_t *p, obs
 	return true;
 }
 
+static void populate_svt_presets(obs_property_t *p, bool rtc)
+{
+	obs_property_list_clear(p);
+	if (!rtc) {
+		obs_property_list_add_int(p, "placebo (0)", 0);
+		obs_property_list_add_int(p, "veryslow (1)", 1);
+		obs_property_list_add_int(p, "slower (2)", 2);
+		obs_property_list_add_int(p, "slow (3)", 3);
+		obs_property_list_add_int(p, "medium (4)", 4);
+		obs_property_list_add_int(p, "fast (5)", 5);
+		obs_property_list_add_int(p, "faster (6)", 6);
+	}
+	obs_property_list_add_int(p, "veryfast (7)", 7);
+	obs_property_list_add_int(p, "superfast (8)", 8);
+	obs_property_list_add_int(p, "ultrafast (9)", 9);
+	obs_property_list_add_int(p, "ultrafast+ (10)", 10);
+	obs_property_list_add_int(p, "ultrafast++ (11)", 11);
+	if (rtc)
+		obs_property_list_add_int(p, "ultrafast+++ (12)", 12);
+}
+
+static bool rtc_modified(obs_properties_t *ppts, obs_property_t *p, obs_data_t *settings)
+{
+	UNUSED_PARAMETER(p);
+	bool rtc = obs_data_get_bool(settings, "rtc");
+	obs_property_t *preset_prop = obs_properties_get(ppts, "preset");
+	populate_svt_presets(preset_prop, rtc);
+	return true;
+}
+
 obs_properties_t *av1_properties(enum av1_encoder_type type)
 {
 	obs_properties_t *props = obs_properties_create();
@@ -288,22 +318,10 @@ obs_properties_t *av1_properties(enum av1_encoder_type type)
 				    OBS_COMBO_FORMAT_INT);
 
 	if (type == AV1_ENCODER_TYPE_SVT) {
-		obs_property_list_add_int(p, "Extraordinarily slow (0)", 0);
-		obs_property_list_add_int(p, "Extremely slow (1)", 1);
-		obs_property_list_add_int(p, "Very slow (2)", 2);
-		obs_property_list_add_int(p, "Slower (3)", 3);
-		obs_property_list_add_int(p, "Slow (4)", 4);
-		obs_property_list_add_int(p, "Slightly slow (5)", 5);
-		obs_property_list_add_int(p, "Very likely too slow (6)", 6);
-		obs_property_list_add_int(p, "Probably too slow (7)", 7);
-		obs_property_list_add_int(p, "Seems okay (8)", 8);
-		obs_property_list_add_int(p, "Might be better (9)", 9);
-		obs_property_list_add_int(p, "A little bit faster? (10)", 10);
-		obs_property_list_add_int(p, "Hmm, not bad speed (11)", 11);
-		obs_property_list_add_int(p, "Whoa, although quality might be not so great (12)", 12);
-		obs_property_list_add_int(p, "Ultra fast (13)", 13);
+		populate_svt_presets(p, false);
 
-		obs_properties_add_bool(props, "rtc", obs_module_text("Enable RTC Mode"));
+		p = obs_properties_add_bool(props, "rtc", obs_module_text("Enable RTC Mode"));
+		obs_property_set_modified_callback(p, rtc_modified);
 	} else if (type == AV1_ENCODER_TYPE_AOM) {
 		obs_property_list_add_int(p, "Probably too slow (7)", 7);
 		obs_property_list_add_int(p, "Okay (8)", 8);
