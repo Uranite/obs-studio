@@ -1486,6 +1486,8 @@ static QString get_adv_fallback(const QString &enc)
 		return "com.apple.videotoolbox.videoencoder.ave.avc";
 	if (enc == "obs_qsv11_av1")
 		return "obs_qsv11";
+	if (enc == "ffmpeg_svt_av1")
+		return "obs_x264";
 	return "obs_x264";
 }
 
@@ -1712,6 +1714,8 @@ void OBSBasicSettings::ResetEncoders(bool streamOnly)
 		ui->simpleOutStrEncoder->addItem(ENCODER_STR("Hardware.AMD.H264"), QString(SIMPLE_ENCODER_AMD));
 	if (service_supports_encoder(vcodecs, "av1_texture_amf"))
 		ui->simpleOutStrEncoder->addItem(ENCODER_STR("Hardware.AMD.AV1"), QString(SIMPLE_ENCODER_AMD_AV1));
+	if (service_supports_encoder(vcodecs, "ffmpeg_svt_av1"))
+		ui->simpleOutStrEncoder->addItem(ENCODER_STR("Software.SVT-AV1"), QString(SIMPLE_ENCODER_SVT_AV1));
 /* Preprocessor guard required for the macOS version check */
 #ifdef __APPLE__
 	if (service_supports_encoder(vcodecs, "com.apple.videotoolbox.videoencoder.ave.avc")

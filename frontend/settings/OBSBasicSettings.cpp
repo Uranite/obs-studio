@@ -4756,6 +4756,8 @@ void OBSBasicSettings::FillSimpleRecordingValues()
 		ui->simpleOutRecEncoder->addItem(ENCODER_STR("Hardware.AMD.H264"), QString(SIMPLE_ENCODER_AMD));
 	if (EncoderAvailable("av1_texture_amf"))
 		ui->simpleOutRecEncoder->addItem(ENCODER_STR("Hardware.AMD.AV1"), QString(SIMPLE_ENCODER_AMD_AV1));
+	if (EncoderAvailable("ffmpeg_svt_av1"))
+		ui->simpleOutRecEncoder->addItem(ENCODER_STR("Software.SVT-AV1"), QString(SIMPLE_ENCODER_SVT_AV1));
 	if (EncoderAvailable("com.apple.videotoolbox.videoencoder.ave.avc")
 #ifndef __aarch64__
 	    && os_get_emulation_status() == true

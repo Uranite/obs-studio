@@ -111,6 +111,8 @@ const char *get_simple_output_encoder(const char *encoder)
 #endif
 	} else if (strcmp(encoder, SIMPLE_ENCODER_NVENC_AV1) == 0) {
 		return "obs_nvenc_av1_tex";
+	} else if (strcmp(encoder, SIMPLE_ENCODER_SVT_AV1) == 0) {
+		return "ffmpeg_svt_av1";
 	} else if (strcmp(encoder, SIMPLE_ENCODER_APPLE_H264) == 0) {
 		return "com.apple.videotoolbox.videoencoder.ave.avc";
 #ifdef ENABLE_HEVC
@@ -303,7 +305,8 @@ void SimpleOutput::Update()
 
 	} else if (strcmp(encoder, SIMPLE_ENCODER_NVENC_AV1) == 0) {
 		presetType = "NVENCPreset2";
-
+	} else if (strcmp(encoder, SIMPLE_ENCODER_SVT_AV1) == 0) {
+		presetType = "preset";
 	} else {
 		presetType = "Preset";
 	}
